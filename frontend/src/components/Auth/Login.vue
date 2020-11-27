@@ -67,4 +67,14 @@ export default {
         max-height: 200px;
         text-align: center;
     }
+     @media all and (max-device-width)
+    {
+        .login{
+            //position: relative;
+            top: 5%;
+            width: 180px;
+            max-height:200px;
+            text-align:center;
+        }
+    }
 </style>

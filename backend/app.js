@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-//const mongoose = require('mongoose');
+
 const app = express();
 const routesPosts = require('./routes/routesPosts');
 const routesUsers = require('./routes/routesUsers');
 const routesMod = require('./routes/routesMod');
-//const path = require('path');
+const routesGifs = require('/routes/routesGifs')
+
 
 app.use(bodyParser.json());
 
@@ -19,5 +20,6 @@ app.use((req, res, next) => {
 app.use('/api/posts', routesPosts);
 app.use('/api/auth', routesUsers);
 app.use('/api/moderation', routesMod);
-//app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/api/gifs', routesGifs);
+
 module.exports = app;
