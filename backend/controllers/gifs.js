@@ -24,6 +24,8 @@ exports.createGif = (req, res, next) => {
             res.status(201).json(JSON.stringify(response));
         })
 }
+//Evolution possible
+/*
 exports.updateGif = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
@@ -42,7 +44,7 @@ exports.updateGif = (req, res, next) => {
             res.status(400).json(JSON.stringify(error));
         })
 }
-/*exports.deleteGif = (req, res, next) => {
+exports.deleteGif = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;

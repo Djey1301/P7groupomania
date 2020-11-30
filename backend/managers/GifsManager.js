@@ -3,7 +3,7 @@ const mysql = require('mysql');
 
 class GifsManager {
     constructor() {
-        console.log('coucou du GifsManager')
+        console.log('liaison au GifsManager correcte')
     }
     
 
@@ -28,7 +28,8 @@ class GifsManager {
             })       
         })
     }
-    updateGif(sqlInserts1, sqlInserts2){
+    //Evolution possible
+    /*updateGif(sqlInserts1, sqlInserts2){
         let sql1 = 'SELECT * FROM gifs where id = ?'; 
         sql1 = mysql.format(sql1, sqlInserts1);
         return new Promise((resolve) =>{
@@ -47,7 +48,7 @@ class GifsManager {
             })
         });
     }
-    /*deleteGif(sqlInserts1, sqlInserts2){
+    deleteGif(sqlInserts1, sqlInserts2){
         let sql1 = 'SELECT * FROM gifs where id = ?';
         sql1 = mysql.format(sql1, sqlInserts1);
         return new Promise((resolve, reject) =>{

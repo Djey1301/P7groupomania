@@ -8,7 +8,7 @@ let connectdb = mysql.createConnection({
 });
 connectdb.connect(function(err) { 
     if (err) throw err;
-    console.log('Connecté à la base de données groupomania !')
+    console.log('Connecté à la base de données P7groupomania !')
 });
 
 module.exports = connectdb;

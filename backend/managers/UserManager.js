@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken');
 
 class UserManager {
     constructor() {
-        console.log('coucou du UserManager')
+        console.log('liaison avec UserManager correcte')
     }
     signup(sqlInserts){
-        let sql = 'INSERT INTO users VALUES(NULL, ?, ?, ?, ?, NULL)';
+        let sql = 'INSERT INTO users (lastName, firstName, email, password, moderation ) VALUES(?, ?, ?, ?, ?)';
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve, reject) =>{
             connectdb.query(sql, function(err, result){

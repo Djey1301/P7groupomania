@@ -3,7 +3,7 @@ const mysql = require('mysql');
 
 class PostsManager {
     constructor() {
-        console.log('coucou du PostsManager')
+        console.log('liaison au PostsManager correcte')
     }
     
 

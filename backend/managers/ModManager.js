@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 class ModManager {
     constructor() {
-        console.log('coucou du ModManager')
+        console.log('liaison au ModManager correcte')
     }
 
     getAllPosts(){
