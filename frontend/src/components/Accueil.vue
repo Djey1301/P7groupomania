@@ -4,14 +4,15 @@
         <div class="battle">
              <h1 class="ma-4">Les gifs pour la battle :</h1>
             <router-view></router-view>
-            <v-container >
+            <div class="container" >
                 <v-btn class="ma-3" @click="gifForm">Créer un gif</v-btn>
                 <!--posts-->
-                <v-card class="mur__gif ma-3 mt-6" v-for="(gif, index) in allGifs" v-bind:key="index" heig>
-                    <div class="d-flex justify-space-between">
-                        <v-card-title>
-                            <h2 class="mur__gif__title ml-0">{{ gif.title }}</h2>
-                        </v-card-title>
+                <div class="Gifs" v-for="(gif, index) in allGifs" v-bind:key="index" heig>
+                    <div class="flex">
+                        <div class="cardTitle">
+                            <h2 class="title">{{ gif.title }}</h2>
+                        </div>
+                        <!--
                         <v-card-actions class=" mur__gif__manage" v-if="gif.userId == userId">
                             <v-btn class=" mur__post__manage--btn" title="modifier le post" @click.stop="goDialogUpGif(gif.title, gif.url, gif.id)" icon>
                                 
@@ -20,21 +21,21 @@
                                 
                             </v-btn> 
                         </v-card-actions>
-                        <v-card-subtitle class=" mur__post__name">
+                        -->
+                        <div class="date">
                         Le {{ gif.date }} à {{ gif.time }}
-                        </v-card-subtitle>
+                        </div>
                     <!-- insertion image-->
-                        <v-img
-                          height="300"
-                          width="250"
-                          :src= "gif.url"
-                          alt="une image gif"
-                        >
-                        </v-img>
+                        <div id="image">
+                            <img
+                               :src= "gif.url"
+                               alt="une image gif"
+                            >
+                        </div>
 
                         
-                    <!--update gif - form-->
-            
+                    <!--update gif - form
+                    Evolution possible
                         <v-dialog v-model="dialogUpGif" max-width="800px">
                             <v-card>
                               <v-card-title>Modifier mon gif</v-card-title>
@@ -50,10 +51,10 @@
                               </v-card-actions>
                             </v-card>
                         </v-dialog>
-
+                        -->
                     </div>
-                </v-card>
-            </v-container>
+                </div>
+            </div>
         </div>
     </v-app>
 </template>
@@ -65,7 +66,7 @@ import TopHeader from "./Accueil/TopHeader";
 import axios from "axios";
 
 export default {
-    name: "Mur",
+    name: "Accueil",
     data(){
         return{
             userId: "",
@@ -74,11 +75,11 @@ export default {
 
             valid: true,
             titleRules: [
-                v => !!v || 'Title is required',
+                v => !!v || 'Un titre est requis',
                 v => (v && v.length <= 30) || 'Title must be less than 30 characters',
             ],
-            contentRules: [
-                v => !!v || 'Gif is required',
+            urlRules: [
+                v => !!v || 'Une URL is requise',
             ],
             dataGif: {
                 id: "",
@@ -157,9 +158,14 @@ export default {
 }
  
 </script>
-<style lang="scss">
-    .v-card{
-        padding-bottom:20px;
+<style lang="scss" scoped>
+    
+    .flex{
+        margin-top:20px;
+        border:2px solid #091f43;
+    }
+    #image{
+        margin-left:100px;
     }
     .header{
         background-color: rgb(94, 85, 83);
@@ -171,6 +177,21 @@ export default {
         background-color: #091f43;
         color:white;
         margin-top: 5%;
+    }
+      @media all and (max-width:500px)
+    {
+       
+        .flex{
+            border:1px solid white;
+        }
+        #image{
+            width:300px;
+            margin-left:0;
+        }
+        img{
+            margin:0;
+        }
+       
     }
         
     

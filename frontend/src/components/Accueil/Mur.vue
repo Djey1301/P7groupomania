@@ -141,14 +141,14 @@ export default {
 
             valid: true,
             titleRules: [
-                v => !!v || 'Title is required',
+                v => !!v || 'Le titre est requis',
                 v => (v && v.length <= 50) || 'Title must be less than 50 characters',
             ],
             contentRules: [
-                v => !!v || 'Content is required',
+                v => !!v || 'Ecrivez-nous un texte',
             ],
             comContentRules: [
-                v => !!v || 'Comment is required',
+                v => !!v || 'Vous nous envoyez un commentaire !',
                 v => (v && v.length <= 50) || 'Comment must be less than 50 characters',
             ],
             dataPost: {
@@ -348,5 +348,13 @@ export default {
                 position: relative;
             }
         }
+   }
+    @media all and (max-width:500px)
+   {
+       .v-card{
+           &__title{
+          font-size:0.8rem; 
+          }
+       }
    }
 </style>

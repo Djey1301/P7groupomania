@@ -6,7 +6,7 @@ import Profil from '../components/Accueil/Profil.vue'
 import Mur from '../components/Accueil/Mur.vue'
 import Post from '../components/Accueil/FormPost.vue'
 import Moderation from '../components/Accueil/Moderation.vue'
-
+import Gifs from '../components/Accueil/FormGifs.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +20,11 @@ Vue.use(VueRouter)
     path: '/Accueil',
     name: 'Accueil',
     component: Accueil
+  },
+  {
+    path: '/Accueil/Gifs',
+    name: 'Gifs',
+    component: Gifs
   },
   {
     path: '/Accueil/Profil',

@@ -32,13 +32,14 @@ import TopHeader from "./TopHeader";
     data(){
         return{
             valid: true,
-            titleRules: [
-                v => !!v || 'Title is required',
-                v => (v && v.length <= 30) || 'Title must be less than 50 characters',
+             titleRules: [
+                v => !!v || 'Le champs est requis',
+                v => (v && v.length <= 30) || 'Le titre comprend moins de 30 characters',
 
             ],
             urlRules: [
-                v => !!v || 'Content is required',
+                v => !!v || 'Le champs est requis',
+                 v => /^(http|https):/.test(v) || 'URL de format http doit être utilisé !',
             ],
             dataGif:{
                 title: "",
