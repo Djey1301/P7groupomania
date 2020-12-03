@@ -10,6 +10,7 @@
             <v-card-text>
                 <v-form ref="form" class="ma-3" v-model="valid" >
                     <v-text-field v-model="dataGif.title" :rules="titleRules" :counter="30" label="Title" autofocus required></v-text-field>
+                     <v-text-field v-model="dataGif.name" :rules="nameRules" :counte="50" label="Name"  required></v-text-field>
                     <v-text-field v-model="dataGif.url" :rules="urlRules" label="Adresse URL de type HTTP:" required></v-text-field>
                 </v-form>
             </v-card-text>
@@ -43,6 +44,7 @@ import TopHeader from "./TopHeader";
             ],
             dataGif:{
                 title: "",
+                name:"",
                 url:"",
                 userId: localStorage.userId
             },

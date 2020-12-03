@@ -6,6 +6,8 @@
             <v-container>
                 <v-btn class="ma-3" @click="clickPosts">Posts</v-btn>
                 <v-btn class="ma-3" @click="clickComments">Commentaires</v-btn>
+                 <v-btn class="ma-3" @click="clickGifs">Gifs</v-btn>
+                
                 <div v-if="showPosts">
                     <v-card class="mur__post ma-3 mt-6" v-for="(post, index) in allPosts" v-bind:key="index">
                         <v-card-title>
@@ -44,6 +46,32 @@
                         </v-card-actions>
                     </v-card>
                 </div>
+                <div v-if="showGifs">
+                    <v-card class="mur__post ma-3 mt-6" v-for="(gif, index) in allGifs" v-bind:key="index">
+                         <v-card-title>
+                            <h2 class="mur__post__title">{{ gif.title }}</h2>
+                        </v-card-title>
+                        <v-card-subtitle class=" mur__post__name">
+                            Le {{ gif.date }}
+                        </v-card-subtitle>
+                        
+                       
+                    <!-- insertion image-->
+                        <div class="image">
+                          <v-img
+                          max-width="400"
+                          max-height="400"
+                          :src= "gif.url"
+                          alt="une image gif"></v-img>
+                        </div>
+                         <v-card-actions class="mur__post__manage">
+                            <v-btn class="mur__post__manage--btn" title="supprimer le gif" @click="deleteGif(gif.id)" icon>
+                                <v-icon>mdi-delete-outline</v-icon>
+                            </v-btn> 
+                        </v-card-actions>
+                    
+                    </v-card>
+                </div>
             </v-container>
         </div>
     </v-app>
@@ -61,8 +89,10 @@ export default {
         return{
             allPosts: [],
             allComments: [],
+            allGiffs: [],
             showPosts: true,
-            showComments: false
+            showComments: false,
+            showGifs: false
         }
     },
     components: {
@@ -71,11 +101,18 @@ export default {
     methods: {
         clickPosts(){
             this.showPosts = true,
-            this.showComments = false
+            this.showComments = false,
+            this.showGifs = false
         },
         clickComments(){
             this.showPosts = false,
-            this.showComments = true
+            this.showComments = true,
+            this.showGifs = false
+        },
+        clickGifs(){
+            this.showPosts = false,
+            this.showComments = false,
+            this.showGifs = true
         },
         deletePost(pId){
             axios.delete("http://localhost:3000/api/moderation/post/" + pId, {headers: {Authorization: 'Bearer ' + localStorage.token}})
@@ -99,7 +136,21 @@ export default {
                 .catch(error => {
                     console.log(error);
                 })
-        }
+        },
+         deleteGif(gId){
+            this.gifId = gId
+            axios.delete("http://localhost:3000/api/moderation/gif/" + gId,  {headers: {Authorization: 'Bearer ' + localStorage.token}})
+                .then(response => {
+                    let rep = JSON.parse(response.data);
+                    console.log(rep.message);
+                    window.location.assign('http://localhost:8080/Accueil/Moderation');
+
+                })
+                .catch(error => {
+                    console.log(error);    
+                })
+        },
+
     },
     mounted(){
         axios.get("http://localhost:3000/api/moderation/posts", {headers: {Authorization: 'Bearer ' + localStorage.token}})
@@ -111,11 +162,19 @@ export default {
             console.log(error); 
             });
         axios.get("http://localhost:3000/api/moderation/comments", {headers: {Authorization: 'Bearer ' + localStorage.token}})
-                .then(response => {
-                    let com = JSON.parse(response.data);
-                    this.allComments = com;
+            .then(response => {
+                let com = JSON.parse(response.data);
+                this.allComments = com;
                 })
-                .catch(error => {
+            .catch(error => {
+                console.log(error);
+                });
+        axios.get("http://localhost:3000/api/moderation/comments", {headers: {Authorization: 'Bearer ' + localStorage.token}})
+            .then(response => {
+                let com = JSON.parse(response.data);
+                this.allComments = com;
+                })
+            .catch(error => {
                 console.log(error);
                 });
     }

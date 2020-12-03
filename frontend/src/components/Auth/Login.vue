@@ -24,7 +24,7 @@ export default {
         return{
             valid: true,
             emailRules: [
-                v => !!v || 'E-mail is required',
+                v => !!v || 'E-mail est requis !',
                 v => /.+@.+\..+/.test(v) || 'E-mail invalide',
             ],
             passRules: [
@@ -52,7 +52,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error);
-                    this.message = error;
+                    this.message = 'Erreur sur la base de donnée';
                     this.msg = true 
                 }); 
         }

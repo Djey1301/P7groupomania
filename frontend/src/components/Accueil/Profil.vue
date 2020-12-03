@@ -79,8 +79,7 @@ export default {
                 firstName: "",
                 lastName: "",
                 email: "",
-                //password1: "",
-                //password2: "",
+                
             },
             dataUpS: "",
             valid: true,
@@ -91,13 +90,7 @@ export default {
                 v => !!v || 'E-mail requis',
                 v => /.+@.+\..+/.test(v) || 'E-mail invalide',
             ],
-            /*pass1Rules: [
-                v => (v || '').indexOf(' ') < 0 || 'Espace.s non autorisé.s',
-            ],
-            pass2Rules: [
-                v => (v || '').indexOf(' ') < 0 || 'Espace.s non autorisé.s',
-                v => (!!v && v) === this.dataUp.password1 || 'Les mots de passe doivent être identiques'
-            ],*/
+            
         }
     },
     methods: {
@@ -154,6 +147,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+#card{
+    border: 2px solid #091f43;
+    padding:15px;
+}
 
 </style>

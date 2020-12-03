@@ -23,8 +23,7 @@
     export default {
         name : "Auth",
         data(){
-            return{
-                
+            return{ 
                 component: ""
             }
         },
@@ -46,10 +45,21 @@
             display: flex;
             flex-direction: row;
             justify-content: space-around;
-            margin-top: 5%;
+            margin-top: 35%;
             &--ind{
                 margin-top: 5%;
                 width: 150px ;
+                
+            }
+        }
+    }
+     .auth {
+        &__boutons{
+            &--ind :hover{
+                animation: shake 0.80s cubic-bezier(.36,.07,.19,.97) both; 
+                transform: translate3d(0, 0, 0); 
+                backface-visibility: hidden; 
+                perspective: 1000px;  
                 
             }
         }
@@ -62,6 +72,24 @@
             margin-top:2%;
         }
     }
+    
+@keyframes shake { 
+    10%, 90% { 
+    transform: translate3d(-1px, 0, 0); 
+    } 
+  
+    20%, 80% { 
+    transform: translate3d(2px, 0, 0); 
+    } 
+  
+    30%, 50%, 70% { 
+    transform: translate3d(-4px, 0, 0); 
+    } 
+  
+    40%, 60% { 
+    transform: translate3d(4px, 0, 0); 
+    } 
+  } 
     @media all and (max-device-width)
     {
         #auth{

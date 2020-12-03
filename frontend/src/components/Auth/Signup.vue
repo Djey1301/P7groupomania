@@ -23,14 +23,14 @@ export default {
         return{
             valid: true,
             nameRules: [
-                v => !!v || 'Name is required',
+                v => !!v || 'Le nom est requis !',
             ],
             emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+                v => !!v || 'E-mail est requis',
+                v => /.+@.+\..+/.test(v) || 'E-mail doit être valide',
             ],
             passRules: [
-                v => !!v || 'Password is required'
+                v => !!v || 'Le mot de passe est requis !'
             ],
             dataSignup:{
                 firstName: "",
@@ -56,7 +56,7 @@ export default {
             })
             .catch(error => {
                 console.log(error);
-                this.message = error;
+                this.message = 'Il y a une erreur d\'enregistrement';
                 this.msg = true; 
                 });
         }

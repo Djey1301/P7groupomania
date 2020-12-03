@@ -42,7 +42,7 @@
                             
                         <v-btn text @click="afficheCom(post.id)" title="voir les commentaires">
                             <v-icon>mdi-comment-eye-outline</v-icon>
-                            Commentaire.s<!--: {{ nbCom[post.id-1].nbComments }}-->
+                            Commentaire.s
                         </v-btn>
                     </v-card-text>
 
@@ -111,7 +111,7 @@
                                 <v-textarea background-color="rgba(255,215,215,0.3)" v-model="dataCom.content" :rules="comContentRules" :counter="255" label="Commentaire" autofocus required></v-textarea>
                             </v-form>
                             <v-btn :disabled="!valid" class="success ma-2" @click="sendCom(post.id)">Poster</v-btn>
-                            <!--<p v-if="msg">{{ message }}</p>-->
+                            
                         </v-card>
                     </div>
                 </v-card>
@@ -149,7 +149,7 @@ export default {
             ],
             comContentRules: [
                 v => !!v || 'Vous nous envoyez un commentaire !',
-                v => (v && v.length <= 50) || 'Comment must be less than 50 characters',
+                v => (v && v.length <= 100) || 'Le commentaire ne doit pas dépasser 100 caracteres',
             ],
             dataPost: {
                 id: "",
@@ -286,12 +286,12 @@ export default {
 
         likePost(postId, nbLikes){
             this.allLikes.forEach(element => {
-                if(element.postId == postId && element.userId == localStorage.userId){
+                if(element.postId === postId && element.userId == localStorage.userId){
                     this.dataLike.nbLikes = nbLikes+-1;
                     this.dataLike.liked = true;
                 }
             });
-            if(this.dataLike.liked == false){
+            if(this.dataLike.liked === false){
                 this.dataLike.nbLikes = nbLikes+1;
             }
             this.dataLike.userId = localStorage.userId;
@@ -328,7 +328,7 @@ export default {
             .then(response =>{
                 let likes = JSON.parse(response.data);
                 this.allLikes = likes;
-                //console.log(this.allLikes);
+                
             })
             .catch(error => {
                 console.log(error)
