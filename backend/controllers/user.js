@@ -7,7 +7,7 @@ const UserManager = require ('../managers/UserManager.js')
 let userManager = new UserManager();
 
 
-exports.signup = (req, res, next) => {
+exports.signup = (req, res, next) => {//Fonction de CREATE utilisateur
     let email = req.body.email;
 	let password = req.body.password;
 	let firstName = req.body.firstName;
@@ -26,10 +26,9 @@ exports.signup = (req, res, next) => {
         })
         .catch(error => res.status(500).json(error)) 
 };
-//if (email === undefined){res.status(400).json({error: 'Undefined email'})};
-//if (password === undefined){res.status(400).json({error: 'Undefined password'})};
 
-exports.login = (req, res, next) => {
+
+exports.login = (req, res, next) => {//Lecture du mail et password de l'utilisateur pour authentification
     let email = req.body.email;
     let password = req.body.password;
     let sqlInserts = [email];
@@ -41,7 +40,7 @@ exports.login = (req, res, next) => {
             res.status(400).json(error)
         })
 }
-exports.seeMyProfile = (req, res, next) => {
+exports.seeMyProfile = (req, res, next) => {//Fonction READ des données de l'utilisateur
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
@@ -55,7 +54,7 @@ exports.seeMyProfile = (req, res, next) => {
             res.status(400).json(error)
         })
 }   
-exports.updateUser = (req, res, next) => {
+exports.updateUser = (req, res, next) => {//Fonction UPDATE du compte utilisateur
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
@@ -72,8 +71,8 @@ exports.updateUser = (req, res, next) => {
         })
 }
  
-exports.deleteUser = (req, res, next) => {
-    //let userId = req.params.id;
+exports.deleteUser = (req, res, next) => {//Fonction DELETE du compte utilisateur
+
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;

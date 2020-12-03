@@ -8,13 +8,13 @@ let gifsManager = new GifsManager();
 
 // GIFS
 
-exports.getAllGifs = (req, res, next) => {
+exports.getAllGifs = (req, res, next) => {//Lecture de tous les gifs
     gifsManager.getAllGifs()
         .then((response) => {
             res.status(200).json(JSON.stringify(response));
         });
 }
-exports.createGif = (req, res, next) => { 
+exports.createGif = (req, res, next) => { //Création d'un gif
     let title = req.body.title;
     let userId = req.body.userId;
     let url = req.body.url;
@@ -23,32 +23,14 @@ exports.createGif = (req, res, next) => {
         .then((response) => {
             res.status(201).json(JSON.stringify(response));
         })
-}
-//Evolution possible
-/*
-exports.updateGif = (req, res, next) => {
+};
+
+exports.deleteGif = (req, res, next) => {//suppression d'un gif par l'utilisateur auteur du gif
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
-    let title = req.body.title;
-    let url = req.body.url;
     let gifId = req.params.id;
-    let sqlInserts1 = [gifId];
-    let sqlInserts2 = [title, url, gifId, userId];
-    gifsManager.updateGif(sqlInserts1, sqlInserts2)
-        .then((response) => {
-            res.status(201).json(JSON.stringify(response));
-        })
-        .catch((error) =>{
-            console.log(error);
-            res.status(400).json(JSON.stringify(error));
-        })
-}
-exports.deleteGif = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    const userId = decodedToken.userId;
-    let sqlInserts = [userId];
+    let sqlInserts = [gifId, userId];
     gifsManager.deletePost(sqlInserts)
         .then((response) =>{
             res.status(200).json(JSON.stringify(response));
@@ -57,4 +39,4 @@ exports.deleteGif = (req, res, next) => {
             console.log(error);
             res.status(400).json(JSON.stringify(error));
         })
-}*/
+}

@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
-
+//Endpoints utilisés par l'API du serveur localhost : 3000
 app.use('/api/posts', routesPosts);
 app.use('/api/auth', routesUsers);
 app.use('/api/moderation', routesMod);

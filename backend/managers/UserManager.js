@@ -9,7 +9,7 @@ class UserManager {
     constructor() {
         console.log('liaison avec UserManager correcte')
     }
-    signup(sqlInserts){
+    signup(sqlInserts){//Fonction d'insertion des données dans la table Users
         let sql = 'INSERT INTO users (lastName, firstName, email, password, moderation ) VALUES(?, ?, ?, ?, ?)';
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve, reject) =>{
@@ -24,12 +24,11 @@ class UserManager {
     login(sqlInserts, password){
         let sql = 'SELECT * FROM users WHERE email = ?';
         sql = mysql.format(sql, sqlInserts);
-        
+        //Lecture des données de l'utilisateur et attribution d'un token
         return new Promise((resolve, reject) =>{
             connectdb.query(sql, function(err, result){
-                if (err) reject({ err });
-                // envoyer message utilisateur inexistant ?;
-                //console.log(result[0]);
+                if (err) reject({ err:'Utilisateur inexistant ?' });
+                
                 if (!result[0]){
                     reject ({ error : 'Utilisateur introuvable !'});
                 } else {
@@ -53,7 +52,7 @@ class UserManager {
         
         })
     }
-    seeMyProfile(sqlInserts){
+    seeMyProfile(sqlInserts){//Lecture des données de l'utilisateur
         let sql = 'SELECT firstName, lastName, email FROM users WHERE id = ?';
         sql = mysql.format(sql,sqlInserts);
         return new Promise((resolve, reject) =>{
@@ -65,7 +64,7 @@ class UserManager {
         })
     
     }
-    updateUser(sqlInserts){
+    updateUser(sqlInserts){//Modification des données de l'utilisateur
         let sql = 'UPDATE users SET firstName = ?, lastName = ?, email = ? WHERE id = ?';
         sql = mysql.format(sql,sqlInserts);
         return new Promise((resolve, reject) =>{
@@ -76,7 +75,7 @@ class UserManager {
 
         })
     }
-    deleteUser(sqlInserts){
+    deleteUser(sqlInserts){//Suppression des données de l'utilisateur
         let sql = 'DELETE FROM users WHERE id = ?'; 
         sql = mysql.format(sql,sqlInserts);
         return new Promise((resolve, reject) =>{

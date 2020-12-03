@@ -8,9 +8,9 @@ const gifsCtrl = require('../controllers/gifs');
 
 
 try{
-    router.get('/', auth, gifsCtrl.getAllGifs);
-    router.post('/', auth, gifsCtrl.createGif);
-    router.put('/:id', auth, gifsCtrl.updateGif);
+    router.get('/', auth, gifsCtrl.getAllGifs);//Lecture de tous les gifs
+    router.post('/', auth, gifsCtrl.createGif);//Création d'un gif
+    router.delete('/', auth, gifsCtrl.deleteGif);//Supprimer un gif
 }catch (error){
     console.log(error);
 }   

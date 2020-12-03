@@ -9,7 +9,7 @@ class PostsManager {
 
 //POSTS
 
-    getAllPosts(){
+    getAllPosts(){//Lecture de toutes les données de la table posts
         let sql = "SELECT posts.id, posts.userId, posts.title, posts.content, DATE_FORMAT(DATE(posts.date), '%d/%m/%Y') AS date, TIME(posts.date) AS time, posts.likes, users.lastName, users.firstName FROM posts JOIN users ON posts.userId = users.id ORDER BY posts.date DESC";
         return new Promise((resolve) =>{
             connectdb.query(sql, function (err, result, fields) {
@@ -18,7 +18,7 @@ class PostsManager {
             });
         })
     }
-    createPost(sqlInserts){
+    createPost(sqlInserts){//Insertion des données du formulaire dans la table posts
         let sql = 'INSERT INTO posts (userId, title, content, date, likes) VALUES( ?, ?, ?, NOW(), 0)';
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve) =>{
@@ -28,7 +28,7 @@ class PostsManager {
             })       
         })
     }
-    updatePost(sqlInserts1, sqlInserts2){
+    updatePost(sqlInserts1, sqlInserts2){//Lecture des données de la table posts en sql1 fraction de mysql
         let sql1 = 'SELECT * FROM posts where id = ?';
         sql1 = mysql.format(sql1, sqlInserts1);
         return new Promise((resolve) =>{
@@ -47,13 +47,13 @@ class PostsManager {
             })
         });
     }
-    deletePost(sqlInserts1, sqlInserts2){
+    deletePost(sqlInserts1, sqlInserts2){//Sélection d'un post
         let sql1 = 'SELECT * FROM posts where id = ?';
         sql1 = mysql.format(sql1, sqlInserts1);
         return new Promise((resolve, reject) =>{
             connectdb.query(sql1, function (err, result, fields){
                 if (err) throw err;
-                if(sqlInserts2[1] == result[0].userId){
+                if(sqlInserts2[1] == result[0].userId){//Suppression du post sélectionné
                     let sql2 = 'DELETE FROM posts WHERE id = ? AND userId = ?';
                     sql2 = mysql.format(sql2, sqlInserts2);
                     connectdb.query(sql2, function (err, result, fields){
@@ -70,7 +70,7 @@ class PostsManager {
 
 // COMMENTS
 
-    getComments(sqlInserts){
+    getComments(sqlInserts){//Lecture des données spécifiées dans la table comments
         let sql = "SELECT comments.comContent, DATE_FORMAT(comments.date, '%d/%m/%Y à %H:%i:%s') AS date, comments.id, comments.userId, users.firstName, users.lastName FROM comments JOIN users on comments.userId = users.id WHERE postId = ? ORDER BY date";
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve) =>{
@@ -81,7 +81,7 @@ class PostsManager {
         
         })
     }
-    createComment(sqlInserts){
+    createComment(sqlInserts){//Création d'un commentaire attaché à un post
         let sql = 'INSERT INTO comments (userId, postId, date, comContent) VALUES( ?, ?, NOW(), ?)';
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve) =>{
@@ -134,7 +134,7 @@ class PostsManager {
 
 // LIKES
     
-    getAllLikes(){
+    getAllLikes(){//Lecture de toutes les lignes de la table likes
         let sql = 'SELECT * FROM likes';
         return new Promise((resolve) =>{
             connectdb.query(sql, function (err, result, fields) {
@@ -143,7 +143,7 @@ class PostsManager {
             });
         })
     }
-    postLike(sqlInserts1, sqlInserts2, liked){
+    postLike(sqlInserts1, sqlInserts2, liked){//Mise à jour du compteur de likes
         let sql1 = 'INSERT INTO likes (postId, userId)VALUES (?, ?)'; 
         sql1 = mysql.format(sql1, sqlInserts1);
         let sql2 = 'UPDATE posts SET likes = ? WHERE id = ?';

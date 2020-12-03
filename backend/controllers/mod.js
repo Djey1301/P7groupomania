@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const ModManager = require ('../managers/ModManager.js');
 
 let modManager = new ModManager();
-
-exports.getAllPosts = (req, res, next) => {
+//**POSTS */
+exports.getAllPosts = (req, res, next) => {//Lecture des posts
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const mod = decodedToken.moderation;
@@ -15,18 +15,18 @@ exports.getAllPosts = (req, res, next) => {
                 //console.log(response);
                 res.status(200).json(JSON.stringify(response));
             })
-            /*.catch((error) =>{
+            .catch((error) =>{
                 res.status(400).json(error)
-            });*/
+            });
     }else{
         res.status(400).json({error: 'Requête non authorisée'})
     }
 }
-exports.deletePost = (req, res, next) => {
+exports.deletePost = (req, res, next) => {//fonction de suppression d'un post
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const mod = decodedToken.moderation;
-    console.log(mod);
+    //console.log(mod);
     if(mod == 1){
         let postId = req.params.id;
         let sqlInserts = [postId];
@@ -34,14 +34,15 @@ exports.deletePost = (req, res, next) => {
             .then((response) => {
                 res.status(200).json(JSON.stringify(response));
             })
-            /*.catch((error) =>{
+            .catch((error) =>{
                 res.status(400).json(error)
-            });*/
+            });
     }else{
         res.status(400).json({error: 'Requête non authorisée'})
     }
 }
-exports.getAllComments = (req, res, next) => {
+/***COMMENTAIRES */
+exports.getAllComments = (req, res, next) => {//Lecture de tous les posts
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const mod = decodedToken.moderation;
@@ -54,7 +55,7 @@ exports.getAllComments = (req, res, next) => {
         res.status(400).json({error: 'Requête non authorisée'})
     }
 }
-exports.deleteComment = (req, res, next) => {
+exports.deleteComment = (req, res, next) => {//Suppression d'un commentaire
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const mod = decodedToken.moderation;
@@ -69,3 +70,40 @@ exports.deleteComment = (req, res, next) => {
         res.status(400).json({error: 'Requête non authorisée'})
     }
 }
+/**GIFS */
+exports.getAllGifs = (req, res, next) => {//Lecture de tous les gifs
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const mod = decodedToken.moderation;
+    if(mod === 1){
+        modManager.getAllGifs()
+            .then((response) => {
+                res.status(200).json(JSON.stringify(response));
+            })
+            .catch((error) =>{
+                res.status(400).json(error)
+            });
+    }else{
+        res.status(400).json({error: 'Requête non authorisée'})
+    }
+}
+exports.deleteGif = (req, res, next) => {//Suppression d'un gif
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const mod = decodedToken.moderation;
+    console.log(mod);
+    if(mod === 1){
+        let gifId = req.params.id;
+        let sqlInserts = [gifId];
+        modManager.deleteGif(sqlInserts)
+            .then((response) => {
+                res.status(200).json(JSON.stringify(response));
+            })
+            .catch((error) =>{
+                res.status(400).json(error)
+            });
+    }else{
+        res.status(400).json({error: 'Requête non authorisée'})
+    }
+}
+
