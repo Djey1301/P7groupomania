@@ -1,6 +1,6 @@
 const http = require('http');
 const app = require('./app');
-
+//Création du serveur port 3000 utilisé par l'API
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
