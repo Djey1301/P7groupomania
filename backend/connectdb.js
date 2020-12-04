@@ -1,5 +1,7 @@
 const mysql = require('mysql');
+/*Utilisation du module mysql de node*/
 console.log('connectdb');
+//Création de la connection
 let connectdb = mysql.createConnection({ 
     host: 'localhost', 
     user: 'root', 

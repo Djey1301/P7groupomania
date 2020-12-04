@@ -6,8 +6,7 @@ const UserManager = require ('../managers/UserManager.js')
 
 let userManager = new UserManager();
 
-
-exports.signup = (req, res, next) => {//Fonction de CREATE utilisateur
+exports.signup = (req, res, next) => {//Fonction de requête CREATE utilisateur
     let email = req.body.email;
 	let password = req.body.password;
 	let firstName = req.body.firstName;
@@ -28,7 +27,7 @@ exports.signup = (req, res, next) => {//Fonction de CREATE utilisateur
 };
 
 
-exports.login = (req, res, next) => {//Lecture du mail et password de l'utilisateur pour authentification
+exports.login = (req, res, next) => {//CREATE de email et password de l'utilisateur pour authentification
     let email = req.body.email;
     let password = req.body.password;
     let sqlInserts = [email];
@@ -40,7 +39,7 @@ exports.login = (req, res, next) => {//Lecture du mail et password de l'utilisat
             res.status(400).json(error)
         })
 }
-exports.seeMyProfile = (req, res, next) => {//Fonction READ des données de l'utilisateur
+exports.seeMyProfile = (req, res, next) => {//fonction de READ des données
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
@@ -72,7 +71,7 @@ exports.updateUser = (req, res, next) => {//Fonction UPDATE du compte utilisateu
 }
  
 exports.deleteUser = (req, res, next) => {//Fonction DELETE du compte utilisateur
-
+    
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;

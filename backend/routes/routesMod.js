@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');//Route de la fonction auth
+const modCtrl = require('../controllers/mod');//Route des fonctions de gestion du modérateur
 
-const modCtrl = require('../controllers/mod');
-
+/**ROUTES DES FONCTIONNALITES LIEES A LA MODERATION */
 try{
     router.get('/comments', auth, modCtrl.getAllComments);//Lecture de tous les commentaires
     router.get('/posts', auth, modCtrl.getAllPosts);//Lecture de tous les posts

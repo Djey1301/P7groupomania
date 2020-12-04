@@ -5,16 +5,14 @@ const PostsManager = require ('../managers/PostsManager.js')
 
 let postsManager = new PostsManager();
 
-
-// POSTS
-
+// POSTS //
 exports.getAllPosts = (req, res, next) => {//Fonction de requête READ
     postsManager.getAllPosts()
         .then((response) => {
             res.status(200).json(JSON.stringify(response));
         });
 }
-exports.createPost = (req, res, next) => {//Fonction de requête CREATE 
+exports.createPost = (req, res, next) => { //Fonction de requête CREATE
     let title = req.body.title;
     let userId = req.body.userId;
     let content = req.body.content;
@@ -60,9 +58,8 @@ exports.deletePost = (req, res, next) => {//Fonction de requête DELETE
 }
 
 
-// COMMENTS
-
-exports.getComments = (req, res, next) => {
+//COMMENTAIRES//
+exports.getComments = (req, res, next) => {//Lecture des commentaires attachés à un post
     let postId = req.params.id;
     let sqlInserts = [postId];
     postsManager.getComments(sqlInserts)
@@ -70,7 +67,7 @@ exports.getComments = (req, res, next) => {
             res.status(200).json(JSON.stringify(response));
         })
 }
-exports.createComment = (req, res, next) => { 
+exports.createComment = (req, res, next) => { //Création d'un commentaire
     let postId = req.params.id;
     let userId = req.body.userId;
     let content = req.body.content;
@@ -81,49 +78,6 @@ exports.createComment = (req, res, next) => {
         })
 }
 
-exports.updateComment = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    const userId = decodedToken.userId;
-    let content = req.body.content;
-    let commentId = req.params.id;
-    let sqlInserts1 = [commentId];
-    let sqlInserts2 = [content, commentId, userId];
-    postsManager.updatePost(sqlInserts1, sqlInserts2)
-        .then((response) => {
-            res.status(201).json(JSON.stringify(response));
-        })
-        .catch((error) =>{
-            console.log(error);
-            res.status(400).json(JSON.stringify(error));
-        })
-}
-exports.deleteComment = (req, res, next) => {
-    let commentId = req.params.id;
-    let sqlInserts = [commentId];
-    postsManager.deleteComment(sqlInserts)
-        .then((response) =>{
-            res.status(200).json(JSON.stringify(response));
-        })
-}
-exports.deleteComment = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    const userId = decodedToken.userId;
-    let commentId = req.params.id;
-    let sqlInserts1 = [commentId];
-    let sqlInserts2 = [commentId, userId];
-    postsManager.deletePost(sqlInserts1, sqlInserts2)
-        .then((response) =>{
-            res.status(200).json(JSON.stringify(response));
-        })
-        .catch((error) =>{
-            console.log(error);
-            res.status(400).json(JSON.stringify(error));
-        })
-}
-
-
 // LIKES
 
 exports.getAllLikes = (req, res, next) =>{//Lecture du nombre de likes
@@ -132,7 +86,7 @@ exports.getAllLikes = (req, res, next) =>{//Lecture du nombre de likes
             res.status(200).json(JSON.stringify(response));
         })
 }
-exports.postLike = (req, res, next) => {//Création et indentation d'un like
+exports.postLike = (req, res, next) => {//Creation et indentation de un like
     let userId = req.body.userId;
     let nbLikes = req.body.nbLikes;
     let postId = req.body.postId;

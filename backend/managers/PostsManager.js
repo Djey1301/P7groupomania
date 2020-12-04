@@ -1,4 +1,4 @@
-const connectdb = require('../connectdb.js');
+const connectdb = require('../connectdb.js');//Connection à la base de données P7groupomania
 const mysql = require('mysql');
 
 class PostsManager {
@@ -7,7 +7,7 @@ class PostsManager {
     }
     
 
-//POSTS
+/**POSTS*/
 
     getAllPosts(){//Lecture de toutes les données de la table posts
         let sql = "SELECT posts.id, posts.userId, posts.title, posts.content, DATE_FORMAT(DATE(posts.date), '%d/%m/%Y') AS date, TIME(posts.date) AS time, posts.likes, users.lastName, users.firstName FROM posts JOIN users ON posts.userId = users.id ORDER BY posts.date DESC";
@@ -33,8 +33,8 @@ class PostsManager {
         sql1 = mysql.format(sql1, sqlInserts1);
         return new Promise((resolve) =>{
             connectdb.query(sql1, function (err, result, fields){
-                if (err) throw err;
-                if(sqlInserts2[3] == result[0].userId){
+                if (err) throw err;//Gestion de deux commandes SQL
+                if(sqlInserts2[3] == result[0].userId){//Modification des données de la table posts en sql2
                     let sql2 = 'UPDATE posts SET title = ?, content = ? WHERE id = ? AND userId = ?';
                     sql2 = mysql.format(sql2, sqlInserts2);
                     connectdb.query(sql2, function (err, result, fields){
@@ -47,13 +47,13 @@ class PostsManager {
             })
         });
     }
-    deletePost(sqlInserts1, sqlInserts2){//Sélection d'un post
+    deletePost(sqlInserts1, sqlInserts2){//Séléction des données d'un post
         let sql1 = 'SELECT * FROM posts where id = ?';
         sql1 = mysql.format(sql1, sqlInserts1);
         return new Promise((resolve, reject) =>{
             connectdb.query(sql1, function (err, result, fields){
                 if (err) throw err;
-                if(sqlInserts2[1] == result[0].userId){//Suppression du post sélectionné
+                if(sqlInserts2[1] == result[0].userId){//Suppression de ce post sélectionné
                     let sql2 = 'DELETE FROM posts WHERE id = ? AND userId = ?';
                     sql2 = mysql.format(sql2, sqlInserts2);
                     connectdb.query(sql2, function (err, result, fields){
@@ -91,46 +91,6 @@ class PostsManager {
             })
         })
     }
-    updateComment(sqlInserts1, sqlInserts2){
-        let sql1 = 'SELECT * FROM comments where id = ?';
-        sql1 = mysql.format(sql1, sqlInserts1);
-        return new Promise((resolve) =>{
-            connectdb.query(sql1, function (err, result, fields){
-                if (err) throw err;
-                if(sqlInserts2[2] == result[0].userId){
-                    let sql2 = 'UPDATE comments SET comContent = ? WHERE id = ? AND userId = ?';
-                    sql2 = mysql.format(sql2, sqlInserts2);
-                    connectdb.query(sql2, function (err, result, fields){
-                        if (err) throw err;
-                        resolve({message : 'Commentaire modifié !'});
-                    })
-                }else{
-                    reject({error: 'fonction indisponible'});
-                }
-            })
-        });
-    }
-    deleteComment(sqlInserts1, sqlInserts2){
-        let sql1 = 'SELECT * FROM comments where id = ?';
-        sql1 = mysql.format(sql1, sqlInserts1);
-        return new Promise((resolve, reject) =>{
-            connectdb.query(sql1, function (err, result, fields){
-                if (err) throw err;
-                if(sqlInserts2[1] == result[0].userId){
-                    let sql2 = 'DELETE FROM comments WHERE id = ? AND userId = ?';
-                    sql2 = mysql.format(sql2, sqlInserts2);
-                    connectdb.query(sql2, function (err, result, fields){
-                        if (err) throw err;
-                        resolve({message : 'Commentaire supprimé !'});
-                    })
-                }else{
-                    reject({error: 'fonction indisponible'});
-                }
-            
-            });
-        })
-    }
-
 
 // LIKES
     
@@ -143,7 +103,7 @@ class PostsManager {
             });
         })
     }
-    postLike(sqlInserts1, sqlInserts2, liked){//Mise à jour du compteur de likes
+    postLike(sqlInserts1, sqlInserts2, liked){//Mise à jour du compteur likes
         let sql1 = 'INSERT INTO likes (postId, userId)VALUES (?, ?)'; 
         sql1 = mysql.format(sql1, sqlInserts1);
         let sql2 = 'UPDATE posts SET likes = ? WHERE id = ?';

@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken');
 
 class UserManager {
     constructor() {
-        console.log('liaison avec UserManager correcte')
+        console.log('liaison UserManager correcte')
     }
     signup(sqlInserts){//Fonction d'insertion des données dans la table Users
-        let sql = 'INSERT INTO users (lastName, firstName, email, password, moderation ) VALUES(?, ?, ?, ?, ?)';
+        let sql = 'INSERT INTO users  VALUES(NULL, ?, ?, ?, ?, NULL)';
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve, reject) =>{
             connectdb.query(sql, function(err, result){
@@ -27,7 +27,7 @@ class UserManager {
         //Lecture des données de l'utilisateur et attribution d'un token
         return new Promise((resolve, reject) =>{
             connectdb.query(sql, function(err, result){
-                if (err) reject({ err:'Utilisateur inexistant ?' });
+                if (err) reject({ err: 'Utilisateur inexiste ?' });
                 
                 if (!result[0]){
                     reject ({ error : 'Utilisateur introuvable !'});

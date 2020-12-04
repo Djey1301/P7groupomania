@@ -9,7 +9,7 @@ class GifsManager {
 
     //GIFS
 
-    getAllGifs(){//Récupération dans la table Gifs des données spécifiées
+    getAllGifs(){//Récupération dans la table gifs des éléments userId, title, name, url et date
         let sql = "SELECT gifs.userId, gifs.title, gifs.name, gifs.url, DATE_FORMAT(DATE(gifs.date), '%d/%m/%Y') AS date, TIME(gifs.date) AS time FROM gifs ORDER BY gifs.date DESC";
         return new Promise((resolve) =>{
             connectdb.query(sql, function (err, result, fields) {
@@ -20,7 +20,7 @@ class GifsManager {
     };
     
     createGif(sqlInserts){//Création des données du formulaire Gif
-        let sql = 'INSERT INTO gifs (userId, title, name, url, date) VALUES(?, ?, ?, ?, NOW())';
+        let sql = 'INSERT INTO gifs (userId, title, name, url, date) VALUES( ?, ?, ?, ?, NOW())';
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve) =>{
             connectdb.query(sql, function (err, result, fields) {
@@ -29,6 +29,7 @@ class GifsManager {
             })       
         })
     }
+
     
    
 }

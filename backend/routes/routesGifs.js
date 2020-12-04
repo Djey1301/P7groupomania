@@ -2,11 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const auth = require('../middleware/auth');
-//const multer = require('../middleware/multer-config');
+const gifsCtrl = require('../controllers/gifs');//Route des fonctions de gestion des gifs
 
-const gifsCtrl = require('../controllers/gifs');
-
-
+/**ROUTES DES GIFS */
 try{
     router.get('/', auth, gifsCtrl.getAllGifs);//Lecture de tous les gifs
     router.post('/', auth, gifsCtrl.createGif);//Création d'un gif
