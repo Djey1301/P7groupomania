@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `gifs` (
   `url` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `userId` (`userId`)
+  KEY `fk_gifs_userId` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
