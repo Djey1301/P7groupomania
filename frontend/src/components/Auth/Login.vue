@@ -7,10 +7,8 @@
                     <v-text-field v-model="dataLogin.password" :rules="passRules" type="password" label="mot de passe" prepend-icon="mdi-lock" required></v-text-field>
                 </v-form>
             </v-card-text>
-            
             <v-btn :disabled="!valid" class="success mb-3" @click="sendLogin()">Valider</v-btn>
             <p v-if="msg">{{ message }}</p>
-            
         </v-card>
     </v-app>
 </template>
@@ -24,7 +22,7 @@ export default {
         return{
             valid: true,
             emailRules: [
-                v => !!v || 'E-mail est requis !',
+                v => !!v || 'E-mail est requis',
                 v => /.+@.+\..+/.test(v) || 'E-mail invalide',
             ],
             passRules: [
@@ -59,6 +57,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
     .login{
         position: relative;
@@ -67,7 +66,7 @@ export default {
         max-height: 200px;
         text-align: center;
     }
-     @media all and (max-device-width)
+    @media all and (max-device-width)
     {
         .login{
             //position: relative;

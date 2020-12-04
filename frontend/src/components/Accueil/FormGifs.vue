@@ -6,15 +6,13 @@
             <v-card-title class="mb-3">
                 <h2>Nouveau gif </h2>
             </v-card-title>
-            
             <v-card-text>
                 <v-form ref="form" class="ma-3" v-model="valid" >
                     <v-text-field v-model="dataGif.title" :rules="titleRules" :counter="30" label="Title" autofocus required></v-text-field>
-                     <v-text-field v-model="dataGif.name" :rules="nameRules" :counte="50" label="Name"  required></v-text-field>
+                    <v-text-field v-model="dataGif.name" :rules="nameRules" :counte="50" label="Name"  required></v-text-field>
                     <v-text-field v-model="dataGif.url" :rules="urlRules" label="Adresse URL de type HTTP:" required></v-text-field>
                 </v-form>
             </v-card-text>
-
             <v-card-actions>
                 <v-btn  :disabled="!valid" class="success" @click="sendGif">GO !</v-btn>
             </v-card-actions>
@@ -22,9 +20,7 @@
     </v-app>
 </template>
 
-
 <script>
-
 import axios from "axios";
 import TopHeader from "./TopHeader";
 
@@ -33,10 +29,13 @@ import TopHeader from "./TopHeader";
     data(){
         return{
             valid: true,
-             titleRules: [
+            
+            titleRules: [
                 v => !!v || 'Le champs est requis',
                 v => (v && v.length <= 30) || 'Le titre comprend moins de 30 characters',
-
+            ],
+            nameRules: [
+                v => !!v || 'Le champs est requis',
             ],
             urlRules: [
                 v => !!v || 'Le champs est requis',
@@ -76,7 +75,6 @@ import TopHeader from "./TopHeader";
                 });
         },
     },
-    
     computed: {},
     }
 

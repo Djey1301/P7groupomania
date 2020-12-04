@@ -1,17 +1,15 @@
 <template>
     <div id="profil" class="d-flex justify-center">
         <top-header/>
-        <v-card class="ma-12" min-width="300px" flat>
+        <v-card class="ma-12" id="card" min-width="300px" flat>
             <v-card-title class="my-3" >
                 <h1>Mon profil</h1>
             </v-card-title>
-
             <v-card-text class="ml-2">
                 <p>Prénom : {{ dataGet.firstName }}</p>
                 <p>Nom : {{ dataGet.lastName }}</p>
                 <p>Email : {{ dataGet.email }}</p>
             </v-card-text>
-
             <v-card-actions class="d-flex justify-space-between">
                 <v-btn @click.stop="dialogUp=true" title="modifier mes informations">Modifier</v-btn>
                 <v-btn @click.stop="dialogDel=true" title="supprimer mon profil">Supprimer</v-btn>
@@ -79,7 +77,7 @@ export default {
                 firstName: "",
                 lastName: "",
                 email: "",
-                
+               
             },
             dataUpS: "",
             valid: true,
@@ -95,7 +93,6 @@ export default {
     },
     methods: {
         deleteUser() {
-            
             axios.delete("http://localhost:3000/api/auth/", {headers: {Authorization: 'Bearer ' + localStorage.token}})
             .then(response => {
                 let rep = JSON.parse(response.data);
@@ -142,14 +139,13 @@ export default {
     
     components: {
         "top-header": TopHeader,
-
     }
 }
 </script>
 
 <style lang="scss" scoped>
 #card{
-    border: 2px solid #091f43;
+    border: 2px solid #6e6e6e;
     padding:15px;
 }
 

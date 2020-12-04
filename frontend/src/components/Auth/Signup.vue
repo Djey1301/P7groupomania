@@ -63,6 +63,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
     .signup{
         position: relative;

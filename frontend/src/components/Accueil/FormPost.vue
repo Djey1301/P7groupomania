@@ -6,14 +6,12 @@
             <v-card-title class="mb-3">
                 <h2>Nouveau post </h2>
             </v-card-title>
-            
             <v-card-text>
                 <v-form ref="form" class="ma-3" v-model="valid" >
-                    <v-text-field v-model="dataPost.title" :rules="titleRules" :counter="50" label="Title" autofocus required></v-text-field>
+                    <v-text-field v-model="dataPost.title" :rules="title1Rules" :counter="50" label="Title" autofocus required></v-text-field>
                     <v-textarea v-model="dataPost.content" :rules="contentRules" label="Content" required></v-textarea>
                 </v-form>
             </v-card-text>
-
             <v-card-actions>
                 <v-btn  :disabled="!valid" class="success" @click="sendPost">Poster</v-btn>
             </v-card-actions>
@@ -30,10 +28,9 @@ export default {
     data(){
         return{
             valid: true,
-            titleRules: [
+            title1Rules: [
                 v => !!v || 'Title is required',
                 v => (v && v.length <= 50) || 'Title must be less than 50 characters',
-
             ],
             contentRules: [
                 v => !!v || 'Content is required',
@@ -57,8 +54,7 @@ export default {
                     this.message = rep.message;
                     this.msg = true;
                     this.form = false;
-                    this.$router.push('/Accueil/Mur')
-                    
+                    this.$router.push('/Accueil/Mur')  
                 })
                 .catch(error => {
                     console.log(error); 
@@ -69,7 +65,6 @@ export default {
     },
     components: {
         "top-header": TopHeader, 
-        
     },
 }
 </script>

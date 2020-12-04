@@ -1,12 +1,13 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Auth from '../components/Auth.vue'
-import Accueil from '../components/Accueil.vue'
-import Profil from '../components/Accueil/Profil.vue'
-import Mur from '../components/Accueil/Mur.vue'
-import Post from '../components/Accueil/FormPost.vue'
-import Moderation from '../components/Accueil/Moderation.vue'
-import Gifs from '../components/Accueil/FormGifs.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Auth from '../components/Auth.vue';
+import Accueil from '../components/Accueil.vue';
+import Profil from '../components/Accueil/Profil.vue';
+import Mur from '../components/Accueil/Mur.vue';
+import Post from '../components/Accueil/FormPost.vue';
+import Gif from '../components/Accueil/FormGifs.vue';
+import Moderation from '../components/Accueil/Moderation.vue';
+
 
 Vue.use(VueRouter)
 
@@ -21,11 +22,7 @@ Vue.use(VueRouter)
     name: 'Accueil',
     component: Accueil
   },
-  {
-    path: '/Accueil/Gifs',
-    name: 'Gifs',
-    component: Gifs
-  },
+ 
   {
     path: '/Accueil/Profil',
     name: 'Profil',
@@ -35,6 +32,11 @@ Vue.use(VueRouter)
     path: '/Accueil/Mur',
     name: 'Mur',
     component: Mur
+  },
+  {
+    path:'/Accueil/Gifs',
+    name: 'Gif',
+    component: Gif
   },
   {
     path: '/Accueil/Mur/Post',
