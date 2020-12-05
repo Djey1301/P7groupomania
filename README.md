@@ -1,17 +1,22 @@
 # P7groupomania
-Fonctionnalité semblable à REDDIT : création de messages, possibilité de liker le message et de commenter.
-Fonctionnalité semblable à 9GAG : postage de gifs, d'images.
 
-# Démarrage base de donnée
-Créer une base de donnée, soit nommée P7groupomania ou autre nom en paramétrant le fichier connectdb.
+Fonctionnalité semblable à **REDDIT** : création de messages, possibilité de liker le message et de commenter.
+Fonctionnalité semblable à **9GAG** : postage de gifs, d'images.
 
-Copier les tables avec la ligne de commandes SQL : selectionner le fichier groupomania.sql par un dump.
+# Installation et configuration du Backend
 
-mysql -v root -p password groupomania <dump.sql
-ou dans PhpmyAdmin faire importer et choisir le fichier groupomania.sql
+## 1. Création de la base de donnée
 
-password = votre mot de passe
+Sur MySQL, Créez une base de donnée nommée **P7groupomania** encodé en **utf8mb4**.
+Importez le dump **p7groupomania.sql** contenu dans le dossier **backend**
 
-# Démarrage serveur
-node server
+## 2. Node Modules
 
+Installez les node modules avec la commande à la racine du dossier **backend** :
+> npm install
+
+
+## Démarrage serveur
+
+En ligne de commande à la racine du dossier **backend** :
+> node server
